@@ -10,7 +10,7 @@ public class powers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(variable.startgame){
+        if(!variable.startgame){
             String show ="";
             for(int i=0;i<(variable.power/20);i++)
                 show  += "■" ;

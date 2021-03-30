@@ -6,7 +6,7 @@ static public class variable
 {
     static public int score = 0;
     static public int power = 0;
-    static public bool startgame = true;
+    static public bool startgame = false;
     static public string text ="彈珠檯";
 }
 public class move : MonoBehaviour
@@ -18,19 +18,19 @@ public class move : MonoBehaviour
     private int stop = 0;
     void Update()
     {
-        if ( Input.GetKey(KeyCode.UpArrow)& variable.startgame){
+        if ( Input.GetKey(KeyCode.UpArrow)& !variable.startgame){
             this.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, force));
             if (variable.power <= 100) variable.power++;
             else variable.power=0;
-        }else if(Input.GetKeyUp(KeyCode.Space)){
-            this.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 100*variable.power));
-            variable.startgame = false;
+        }else if(Input.GetKeyUp(KeyCode.UpArrow)){
+            // this.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, 100*variable.power));
+            variable.startgame = true;
             
         }
 
         if (Input.GetKey(KeyCode.W))
         {
-            
+            this.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, force));
         }
 
         if (Input.GetKey(KeyCode.A))
@@ -52,6 +52,8 @@ public class move : MonoBehaviour
         {
             variable.text = "遊戲結束";
             this.transform.position = new Vector3(22.879f,-11.78f,-48.06f);
+            variable.startgame = false;
+            variable.text = "彈珠台\n按↑鍵開始";
         }
     }
 
@@ -81,9 +83,20 @@ public class move : MonoBehaviour
             variable.score+=10;
         }
 
+        if(collision.gameObject.tag == "specialZone"){
+            variable.score+=100;
+        }
+
+        if(collision.gameObject.tag == "AddScoreZone"){
+            variable.score+=5;
+        }
+
         if(collision.gameObject.tag == "endboard"){
             variable.text = "遊戲結束";
             this.transform.position = new Vector3(22.879f,-11.78f,-48.06f);
+            variable.startgame = false;
+            variable.score = 0;
+            variable.text = "彈珠台\n按↑鍵開始";
         }
     }
 
