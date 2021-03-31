@@ -18,7 +18,7 @@ public class rotate : MonoBehaviour
         //gameObject.transform.rotation = Quaternion.Euler(0f, 20f, 0f);
         if (Input.GetKey(KeyCode.R) && flags)
         {
-            this.GetComponent<Transform>().RotateAround(Vector3.up, 0.1f);
+            this.GetComponent<Transform>().Rotate(Vector3.up, 0.1f);
             flags = !flags;
         }
         else
@@ -28,7 +28,7 @@ public class rotate : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Q)) { 
-            this.GetComponent<Transform>().RotateAround(Vector3.up, 0.5f);
+            this.GetComponent<Transform>().Rotate(Vector3.up, 0.5f);
             rcount++;
             if (rcount == 16) rcount = 0;
         }
